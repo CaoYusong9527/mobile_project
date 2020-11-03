@@ -1,10 +1,18 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <van-button type="primary" size="large" round>主要按钮</van-button>
+
   </div>
 </template>
+<script>
+export default {
+  data () {
+    return {
 
+    }
+  }
+}
+</script>
 <style lang="scss">
 
 </style>
