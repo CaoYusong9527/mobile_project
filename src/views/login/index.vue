@@ -82,6 +82,7 @@ export default {
         console.log(res.data)
         this.setTokenInfo(res.data.data)
         this.$toast.success('登录成功')
+        this.$router.push('/')
       } catch (err) {
         console.log(err)
         this.$toast.fail('手机号或者验证码有误')
