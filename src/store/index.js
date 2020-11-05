@@ -4,14 +4,16 @@ import { setToken, getToken } from '@/utils/storage.js'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  // 准备state数据
   state: {
-    // tokenInfo: JSON.parse(localStorage.getItem('tokenInfo')) || {}
+    // 这里的初始值, 也不能为空, 需要从本地的localStorage中拿
     tokenInfo: getToken()
   },
   mutations: {
+    // 设置tokenInfo这个对象, 对象中有token信息
     setTokenInfo (state, tokenObj) {
       state.tokenInfo = tokenObj
-      // localStorage.setItem('tokenInfo', JSON.stringify(tokenObj))
+      // 一更新token, 就往本地存一份, 本地就可以实时的同步到vuex的数据
       setToken(tokenObj)
     }
   },
@@ -20,6 +22,3 @@ export default new Vuex.Store({
   modules: {
   }
 })
-
-// getter 必须要有返回值,由state派生出来的一些属性==>基于state动态并计算出来的属性
-// 有点类似于计算属性

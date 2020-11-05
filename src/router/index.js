@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/login'
+// 首页tab栏相关
 import LayoutIndex from '@/views/layout'
 import HomeIndex from '@/views/home'
 import QuestionIndex from '@/views/question'
 import VideoIndex from '@/views/video'
 import UserIndex from '@/views/user'
 import Search from '@/views/search'
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({

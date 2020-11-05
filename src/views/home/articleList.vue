@@ -1,14 +1,34 @@
 <template>
-  <div class="articleList">
+  <div class="article-list">
+    <van-pull-refresh v-model="isRefreshing" @refresh="onRefresh">
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+      >
+        <van-cell v-for="item in list" :key="item.art_id.toString()" :title="item.title">
+          <template #label>
+            <van-grid :column-num="item.cover.images.length">
+              <!-- 列的每一项 -->
+              <van-grid-item v-for="(img, index) in item.cover.images" :key="index" icon="photo-o" text="文字" >
+                <van-image lazy-load :src="img"></van-image>
+              </van-grid-item>
 
-   <van-list
-  v-model="loading"
-  :finished="finished"
-  finished-text="没有更多了"
-  @load="onLoad"
->
-  <van-cell v-for="item in list" :key="item.art_id.toString()" :title="item.title" />
-</van-list>
+              <!-- 底部文字说明 -->
+              <div class="meta">
+                <span>{{item.aut_name}}</span>
+                <span>{{item.comm_count}} 评论</span>
+                <span>{{item.pubdate | relative }}</span>
+                <div @click="close(item)" class="right-icon">
+                  <van-icon name="cross" />
+                </div>
+              </div>
+            </van-grid>
+          </template>
+        </van-cell>
+      </van-list>
+    </van-pull-refresh>
   </div>
 </template>
 
@@ -16,38 +36,64 @@
 import { reqGetArticles } from '@/api/article.js'
 export default {
   name: 'ArticleList',
+  created () {
+    this.$eventBus.$on('del-article', (obj) => {
+    })
+  },
   props: ['channel'],
   data () {
     return {
+      timestamp: null,
       list: [],
       loading: false,
       finished: false,
-      timestamp: null // 时间戳
+      isRefreshing: false // 是否在下拉刷新中
     }
   },
   methods: {
-    // onLoad加载执行
     async onLoad () {
-      // 异步更新数据
-
       if (!this.timestamp) {
-        // 如果不存在时间戳,初始化时间戳
+        // 初始化时间戳
         this.timestamp = +new Date()
       }
-      const result = await reqGetArticles(this.channel.id, this.timestamp)
-      // 保存时间戳, 以便下一次传入
-      this.timestamp = result.data.data.pre_timestamp
 
-      // 1. 将请求结果, 添加到 list 中
-      const arr = result.data.data.results
+      const res = await reqGetArticles(this.channel.id, this.timestamp)
+      this.timestamp = res.data.data.pre_timestamp
+      const arr = res.data.data.results
       this.list = [...this.list, ...arr]
-      // 2. 将loading改成false
       this.loading = false
-      // 3. 判断是否完全加载完了, 如果是, 把finished改成true
       if (arr.length === 0) {
         this.finished = true
       }
+    },
+
+    async onRefresh () {
+      const res = await reqGetArticles(this.channel.id, +new Date())
+      this.timestamp = res.data.data.pre_timestamp
+      this.list = res.data.data.results
+      this.isRefreshing = false
+      this.$toast.success('刷新成功')
+    },
+
+    close (item) {
+      this.$emit('show-more', item.art_id.toString())
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.article-list {
+  .meta {
+    width: 100%;
+    span {
+      margin-right: 10px;
+    }
+    .right-icon {
+      float: right;
+      margin-top: 3px;
+      margin-right: 3px;
+    }
+  }
+}
+</style>

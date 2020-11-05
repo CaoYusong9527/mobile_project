@@ -1,6 +1,7 @@
 <template>
   <div class="layout-container">
     <van-nav-bar fixed>
+      <!-- #left => v-slot:left 的简写 -->
       <template #left>
         <div class="logo"></div>
       </template>
@@ -17,28 +18,27 @@
       </template>
     </van-nav-bar>
 
-    <!-- 二级路由 -->
     <router-view></router-view>
 
-    <!-- tabBar -->
-    <van-tabbar>
-      <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
-      <van-tabbar-item icon="chat-o" to="/question">问答</van-tabbar-item>
-      <van-tabbar-item icon="video-o" to="/video">视频</van-tabbar-item>
-      <van-tabbar-item icon="user-o" to="/user">我的</van-tabbar-item>
+    <van-tabbar route>
+      <van-tabbar-item to="/" icon="home-o">首页</van-tabbar-item>
+      <van-tabbar-item to="/question" icon="chat-o">问答</van-tabbar-item>
+      <van-tabbar-item to="/video" icon="video-o">视频</van-tabbar-item>
+      <van-tabbar-item to="/user" icon="user-o">我的</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
 
 <script>
 export default {
-
+  name: 'LayoutIndex'
 }
 </script>
 
 <style lang="scss">
 .layout-container {
   // logo区域
+  // 在css中加载图片等内容, 需要在 @ 前面补上 ~, 否则将无法识别 @
   .logo {
     background: url("~@/assets/logo.png") no-repeat;
     background-size: cover;

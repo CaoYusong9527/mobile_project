@@ -1,8 +1,8 @@
-// 封装与频道相关的操作
-import http from '@/utils/request'
+// 存放所有与频道相关的请求 (获取, 添加, 删除...)
+import http from '@/utils/request.js'
 
 /**
- * 获取用户频道
+ * 获取用户频道信息
  */
 export const reqGetChannels = () => {
   return http({
