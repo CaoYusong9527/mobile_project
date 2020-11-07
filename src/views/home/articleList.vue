@@ -38,6 +38,12 @@ export default {
   name: 'ArticleList',
   created () {
     this.$eventBus.$on('del-article', (obj) => {
+      const { articleId, channelId } = obj
+      // 是否是当前频道：是, 删除; 否, 不处理
+      if (channelId !== this.channel.id) {
+        return
+      }
+      this.list = this.list.filter(item => item.art_id.toString() !== articleId)
     })
   },
   props: ['channel'],
@@ -73,6 +79,7 @@ export default {
       this.list = res.data.data.results
       this.isRefreshing = false
       this.$toast.success('刷新成功')
+      this.onLoad()
     },
 
     close (item) {

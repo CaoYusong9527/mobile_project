@@ -19,7 +19,8 @@ import {
   PullRefresh,
   Lazyload,
   Popup,
-  Icon
+  Icon,
+  ActionSheet
 } from 'vant'
 
 Vue.use(Icon)
@@ -41,3 +42,4 @@ Vue.use(Tabbar)
 Vue.use(TabbarItem)
 Vue.use(Tab)
 Vue.use(Tabs)
+Vue.use(ActionSheet)
