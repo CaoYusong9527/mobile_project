@@ -14,7 +14,7 @@
       <more-action @dislike="dislike" @report="report"></more-action>
     </van-popup>
     <van-action-sheet v-model="showChannelEdit" title="标题">
- <channel-edit :active="active" @update-curchannel="updateCurrentChannel"></channel-edit>
+ <channel-edit :active="active" @update-curchannel="updateCurrentChannel"  @update-active="updateActive"></channel-edit>
 </van-action-sheet>
   </div>
 
@@ -81,6 +81,9 @@ export default {
       this.active = index
       // 关闭弹框
       this.showChannelEdit = false
+    },
+    updateActive (active) {
+      this.active = active
     }
   },
   components: {

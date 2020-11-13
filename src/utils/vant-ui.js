@@ -20,7 +20,13 @@ import {
   Lazyload,
   Popup,
   Icon,
-  ActionSheet
+  ActionSheet,
+  Search,
+  Loading,
+  Divider,
+  Tag,
+  Row,
+  Col
 } from 'vant'
 
 Vue.use(Icon)
@@ -43,3 +49,9 @@ Vue.use(TabbarItem)
 Vue.use(Tab)
 Vue.use(Tabs)
 Vue.use(ActionSheet)
+Vue.use(Search)
+Vue.use(Divider)
+Vue.use(Loading)
+Vue.use(Tag)
+Vue.use(Row)
+Vue.use(Col)

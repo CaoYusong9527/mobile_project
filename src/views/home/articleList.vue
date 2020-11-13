@@ -7,7 +7,7 @@
         finished-text="没有更多了"
         @load="onLoad"
       >
-        <van-cell v-for="item in list" :key="item.art_id.toString()" :title="item.title">
+        <van-cell  @click="$router.push('/article/' + item.art_id.toString())"  v-for="item in list" :key="item.art_id.toString()" :title="item.title">
           <template #label>
             <van-grid :column-num="item.cover.images.length">
               <!-- 列的每一项 -->
@@ -20,7 +20,7 @@
                 <span>{{item.aut_name}}</span>
                 <span>{{item.comm_count}} 评论</span>
                 <span>{{item.pubdate | relative }}</span>
-                <div @click="close(item)" class="right-icon">
+                <div @click.stop="close(item)" class="right-icon">
                   <van-icon name="cross" />
                 </div>
               </div>

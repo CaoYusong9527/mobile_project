@@ -14,3 +14,15 @@ export const getToken = () => {
 export const removeToken = () => {
   localStorage.removeItem(tokenKey)
 }
+
+const historyKey = 'hm-mobile-70-history'
+
+// 设置 history 历史记录
+export const setHistory = (arr) => {
+  localStorage.setItem(historyKey, JSON.stringify(arr))
+}
+
+// 获取 history 历史记录
+export const getHistory = () => {
+  return JSON.parse(localStorage.getItem(historyKey)) || []
+}

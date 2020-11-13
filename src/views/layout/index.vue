@@ -1,6 +1,9 @@
 <template>
   <div class="layout-container">
-    <van-nav-bar fixed>
+    <van-nav-bar
+    fixed
+    v-if="$route.path !=='/user'"
+    >
       <!-- #left => v-slot:left 的简写 -->
       <template #left>
         <div class="logo"></div>

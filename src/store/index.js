@@ -24,6 +24,12 @@ export default new Vuex.Store({
     },
     setAllChannels (state, allChannels) {
       state.allChannels = allChannels
+    },
+    addChannel (state, channel) {
+      state.channels.push(channel)
+    },
+    delChannel (state, channel) {
+      state.channels = state.channels.filter(item => item.id !== channel.id)
     }
   },
   actions: {

@@ -28,3 +28,37 @@ export const reqGetProfile = () => {
     url: '/app/v1_0/user/profile'
   })
 }
+
+/**
+ * 关注用户
+ * @param {*} userId 作者的id
+ */
+export const reqFollowUser = (userId) => {
+  return http({
+    method: 'post',
+    url: '/app/v1_0/user/followings',
+    data: {
+      target: userId
+    }
+  })
+}
+/**
+ * 取消关注用户
+ * @param {*} userId 作者的id
+ */
+export const reqUnFollowUser = (userId) => {
+  return http({
+    method: 'delete',
+    url: '/app/v1_0/user/followings/' + userId
+  })
+}
+
+/**
+ * 获取用户个人信息 (用于个人中心页的渲染数据)
+ */
+export const reqGetUserInfo = () => {
+  return http({
+    method: 'get',
+    url: '/app/v1_0/user'
+  })
+}
